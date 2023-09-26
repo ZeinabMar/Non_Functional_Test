@@ -1,0 +1,7 @@
+git+ssh://git@gitlab.sinacomsys.local/quality-assurance/test-infrastructure/snmplib.git@master#egg=snmplib
+xlsxwriter==3.1.5 
+aspose-cells==23.9.0
+pyasn1==0.4.8
+pysnmp==4.4.12
+wheel
+
