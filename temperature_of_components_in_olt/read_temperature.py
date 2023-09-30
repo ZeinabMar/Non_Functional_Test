@@ -7,13 +7,6 @@ from snmplib.snmp import SnmpInterface
 from snmplib.oltmibs import sinaSP5100FanSpeed, sinaBoardCpuTemperature, sinaBoardPonTemperature, sinaBoardPonChipTemperature
 import openpyxl 
 
-# sinaSP5100FanSpeed    =  ".1.3.6.1.4.1.54964.2.1.1.2.1.2.1.1"
-# sinaBoardCpuTemperature    =  ".1.3.6.1.4.1.54964.4.1.1.1.1.3"
-# sinaBoardPonTemperature    =  ".1.3.6.1.4.1.54964.4.1.1.1.1.4"
-# sinaBoardPonChipTemperature    =  ".1.3.6.1.4.1.54964.4.1.1.1.1.5"
-# sinaBoardSwitchChipTemperature    =  ".1.3.6.1.4.1.54964.4.1.1.1.1.6"
-
-
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
@@ -27,8 +20,6 @@ def join_oid(oid, *indexes):
         elif index:
             oid = ".".join([oid, str(index)])
     return oid
-
-
 
 def get_Cpu_temperature(snmp_interface, oid_name_Cpu_temp,*suffix_index):
     temperature_CPU = snmp_interface.snmp_get(join_oid(oid_name_Cpu_temp, suffix_index))
@@ -72,120 +63,6 @@ state = int(state)
 snmp_interface = SnmpInterface(ip=ip_address, community="sina_private", version="2", port=161, timeout=20)
 
 
-
-
-if state != 1:
-    workbook = openpyxl.load_workbook('/home/zeinab/python_script/temperature_of_components_in_olt/workbook.xlsx')
-    constant_speed = 25
-    for fan_index in range(1,5):
-        fan_speed = set_and_get_fan_speed(snmp_interface, sinaSP5100FanSpeed, constant_speed, shelfIndex, fan_index)       
-    for i in range(2,5):    
-        cpu_tp = get_Cpu_temperature(snmp_interface, sinaBoardCpuTemperature, shelfIndex, slotIndex)
-        pon_tp = get_Pon_temperature(snmp_interface, sinaBoardPonTemperature, shelfIndex, slotIndex)
-        pon_chip_tp = get_Pon_Chip_temperature(snmp_interface, sinaBoardPonChipTemperature, shelfIndex, slotIndex)
-        print(cpu_tp, pon_tp, pon_chip_tp)
-        if state == 2:
-            worksheet = workbook['sheet2']
-            worksheet["A1"] = 'With Filter'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 3:
-            worksheet = workbook['sheet3']
-            worksheet["A1"] = 'No Filter'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 4:
-            worksheet = workbook['sheet3']
-            worksheet["A1"] = 'With Door'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 5:
-            worksheet = workbook['sheet5']
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 6:
-            worksheet = workbook['sheet6']
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 7:
-            worksheet = workbook['sheet7']
-            worksheet["A1"] = 'Some Module'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 8:
-            worksheet = workbook['sheet8']
-            worksheet["A1"] = 'One AC'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-        if state == 9:
-            worksheet = workbook['sheet9']
-            worksheet["A1"] = 'Two AC'
-            worksheet["A2"] = 'CPU Temperature'
-            worksheet["B2"] = 'PON Temperature'
-            worksheet["C2"] = 'PON Chip Temperature'
-            worksheet["D2"] = 'SPEED FAN'
-            worksheet[f"A{i+1}"] = f'{cpu_tp}'
-            worksheet[f"B{i+1}"] = f'{pon_tp}'
-            worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
-            worksheet[f"D{i+1}"] = f'{fan_speed}'
-            time.sleep(int(delay))
-    workbook.save('/home/zeinab/python_script/temperature_of_components_in_olt/workbook.xlsx')
-       
-
-
-
-import openpyxl
-
-
 if state == 1:
     wb = xlsxwriter.Workbook("/home/zeinab/python_script/temperature_of_components_in_olt/workbook.xlsx")
     worksheet_fan_variation = wb.add_worksheet("sheet1")
@@ -198,7 +75,7 @@ if state == 1:
     worksheet8 = wb.add_worksheet("sheet8")
     worksheet9 = wb.add_worksheet("sheet9")
 
-    worksheet_fan_variation.write("A1", 'Fan Speed Variation')
+    worksheet_fan_variation.write("A1", 'Fan Speed Variation Wth Fan, Door and 2 Ac')
     worksheet_fan_variation.write("A2", 'CPU Temperature')
     worksheet_fan_variation.write("B2", 'PON Temperature')
     worksheet_fan_variation.write("C2", 'PON Chip Temperature')
@@ -228,7 +105,72 @@ if state == 1:
                 worksheet_fan_variation.write(f"C{i+100}", f'{pon_chip_tp}')
                 worksheet_fan_variation.write(f"D{i+100}", f'{fan_speed}')      
             time.sleep(int(delay))
-    wb.close()       
+    wb.close() 
+
+if state != 1:
+    workbook = openpyxl.load_workbook('/home/zeinab/python_script/temperature_of_components_in_olt/workbook.xlsx')
+    for speed_fan_set in [10,40,90]:
+        for fan_index in range(1,5):
+            fan_speed = set_and_get_fan_speed(snmp_interface, sinaSP5100FanSpeed, speed_fan_set, shelfIndex, fan_index)               
+        if state == 2:
+            worksheet = workbook['sheet2']
+            worksheet["A1"] = 'With Filter'
+        if state == 3:
+            worksheet = workbook['sheet3']
+            worksheet["A1"] = 'No Filter With Door and 2 AC (one connected and another not connected), Some module'
+        if state == 4:
+            worksheet = workbook['sheet4']
+            worksheet["A1"] = 'Without Door, with filter and 2 AC (one connected and another not connected), Some module'
+        if state == 5:
+            worksheet = workbook['sheet5']
+            worksheet["A1"] = 'Without Door and filter, with 2 AC (one connected and another not connected), Some module'
+        if state == 6:
+            worksheet = workbook['sheet6']
+            worksheet["A1"] = 'Full Module with Filter and Door, with 2 AC (one connected and another not connected)'
+        if state == 7:
+            worksheet = workbook['sheet7']
+            worksheet["A1"] = 'Full Module without Filter With Door, with 2 AC (one connected and another not connected)'
+        if state == 8:
+            worksheet = workbook['sheet8']
+            worksheet["A1"] = 'One AC, full Module with Door without Filter '
+        if state == 9:
+            worksheet = workbook['sheet9']
+            worksheet["A1"] = 'Two AC, full Module with Door without Filter'
+
+        worksheet["A2"] = 'CPU Temperature'
+        worksheet["B2"] = 'PON Temperature'
+        worksheet["C2"] = 'PON Chip Temperature'
+        worksheet["D2"] = 'SPEED FAN'  
+        for i in range(2,50):    
+            cpu_tp = get_Cpu_temperature(snmp_interface, sinaBoardCpuTemperature, shelfIndex, slotIndex)
+            pon_tp = get_Pon_temperature(snmp_interface, sinaBoardPonTemperature, shelfIndex, slotIndex)
+            pon_chip_tp = get_Pon_Chip_temperature(snmp_interface, sinaBoardPonChipTemperature, shelfIndex, slotIndex)
+            print(cpu_tp, pon_tp, pon_chip_tp)
+            if speed_fan_set == 10:
+                worksheet[f"A{i+1}"] = f'{cpu_tp}'
+                worksheet[f"B{i+1}"] = f'{pon_tp}'
+                worksheet[f"C{i+1}"] = f'{pon_chip_tp}'
+                worksheet[f"D{i+1}"] = f'{fan_speed}'
+            if speed_fan_set == 40:
+                worksheet[f"A{i+50}"] = f'{cpu_tp}'
+                worksheet[f"B{i+50}"] = f'{pon_tp}'
+                worksheet[f"C{i+50}"] = f'{pon_chip_tp}'
+                worksheet[f"D{i+50}"] = f'{fan_speed}'
+            if speed_fan_set == 90:
+                worksheet[f"A{i+100}"] = f'{cpu_tp}'
+                worksheet[f"B{i+100}"] = f'{pon_tp}'
+                worksheet[f"C{i+100}"] = f'{pon_chip_tp}'
+                worksheet[f"D{i+100}"] = f'{fan_speed}'    
+            time.sleep(int(delay))
+
+    workbook.save('/home/zeinab/python_script/temperature_of_components_in_olt/workbook.xlsx')
+       
+
+
+
+
+
+      
     
      
 
