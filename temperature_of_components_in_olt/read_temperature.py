@@ -24,18 +24,18 @@ def join_oid(oid, *indexes):
 def get_Cpu_temperature(snmp_interface, oid_name_Cpu_temp,*suffix_index):
     temperature_CPU = snmp_interface.snmp_get(join_oid(oid_name_Cpu_temp, suffix_index))
     logger.info('getting read CPU_TEMPERATURE COMPLETE')  
-    return temperature_CPU['value']
+    return temperature_CPU['value']/1000
 
 def get_Pon_temperature(snmp_interface, oid_name_Pon_temp,*suffix_index):
     temperature_Pon = snmp_interface.snmp_get(join_oid(oid_name_Pon_temp, suffix_index))
     logger.info('getting read PON_TEMPERATURE COMPLETE')  
-    return temperature_Pon['value']
+    return temperature_Pon['value']/1000
 
 def get_Pon_Chip_temperature(snmp_interface, oid_name_Pon_Chip_temp,*suffix_index):
     temperature_Pon_Chip = snmp_interface.snmp_get(join_oid(oid_name_Pon_Chip_temp, suffix_index))
     logger.info('getting read PON_CHIP_TEMPERATURE COMPLETE')  
 
-    return temperature_Pon_Chip['value']    
+    return temperature_Pon_Chip['value']/1000    
 
 def set_and_get_fan_speed(snmp_interface, oid_fan_speed, set_value, *suffix_index): 
     fan_speed_set_result = snmp_interface.snmp_set(join_oid(oid_fan_speed, suffix_index), set_value, "Integer")
@@ -75,11 +75,11 @@ if state == 1:
     worksheet8 = wb.add_worksheet("sheet8")
     worksheet9 = wb.add_worksheet("sheet9")
 
-    worksheet_fan_variation.write("A1", 'Fan Speed Variation Wth Fan, Door and 2 Ac')
-    worksheet_fan_variation.write("A2", 'CPU Temperature')
-    worksheet_fan_variation.write("B2", 'PON Temperature')
-    worksheet_fan_variation.write("C2", 'PON Chip Temperature')
-    worksheet_fan_variation.write("D2", 'SPEED FAN')
+    worksheet_fan_variation.write("A1", 'Fan Speed Variation With Fan, Door and 2 AC')
+    worksheet_fan_variation.write("A2", 'CPU Temperature  C')
+    worksheet_fan_variation.write("B2", 'PON Temperature  C')
+    worksheet_fan_variation.write("C2", 'PON Chip Temperature  C')
+    worksheet_fan_variation.write("D2", 'SPEED FAN (percent of 100)')
 
     for speed_fan_set in [10,40,90]:
         for fan_index in range(1,5):
@@ -126,21 +126,27 @@ if state != 1:
             worksheet["A1"] = 'Without Door and filter, with 2 AC (one connected and another not connected), Some module'
         if state == 6:
             worksheet = workbook['sheet6']
-            worksheet["A1"] = 'Full Module with Filter and Door, with 2 AC (one connected and another not connected)'
+            worksheet["A1"] = 'Full Module (4up 8pon) with Filter and Door, with 2 AC (one connected and another not connected)'
         if state == 7:
             worksheet = workbook['sheet7']
-            worksheet["A1"] = 'Full Module without Filter With Door, with 2 AC (one connected and another not connected)'
+            worksheet["A1"] = 'Full Module (4up 8pon) without Filter With Door, with 2 AC (one connected and another not connected)'
         if state == 8:
             worksheet = workbook['sheet8']
-            worksheet["A1"] = 'One AC, full Module with Door without Filter '
+            worksheet["A1"] = 'Full Module (8pon) with Filter and Door, with 2 AC (one connected and another not connected)'
         if state == 9:
             worksheet = workbook['sheet9']
+            worksheet["A1"] = 'Full Module (4up)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+        if state == 10:
+            worksheet = workbook['sheet10']
+            worksheet["A1"] = 'One AC, full Module with Door without Filter '
+        if state == 11:
+            worksheet = workbook['sheet11']
             worksheet["A1"] = 'Two AC, full Module with Door without Filter'
 
-        worksheet["A2"] = 'CPU Temperature'
-        worksheet["B2"] = 'PON Temperature'
-        worksheet["C2"] = 'PON Chip Temperature'
-        worksheet["D2"] = 'SPEED FAN'  
+        worksheet["A2"] = 'CPU Temperature  C'
+        worksheet["B2"] = 'PON Temperature  C'
+        worksheet["C2"] = 'PON Chip Temperature  C'
+        worksheet["D2"] = 'SPEED FAN (percent of 100)'  
         for i in range(2,50):    
             cpu_tp = get_Cpu_temperature(snmp_interface, sinaBoardCpuTemperature, shelfIndex, slotIndex)
             pon_tp = get_Pon_temperature(snmp_interface, sinaBoardPonTemperature, shelfIndex, slotIndex)
