@@ -123,24 +123,39 @@ if state != 1:
             worksheet["A1"] = 'Without Door, with filter and 2 AC (one connected and another not connected), Some module'
         if state == 5:
             worksheet = workbook['sheet5']
-            worksheet["A1"] = 'Without Door and filter, with 2 AC (one connected and another not connected), Some module'
+            worksheet["A1"] = 'Without Door and filter, with 2 AC (one connected and another not connected), Some module' 
+
         if state == 6:
             worksheet = workbook['sheet6']
-            worksheet["A1"] = 'Full Module (4up 8pon) with Filter and Door, with 2 AC (one connected and another not connected)'
+            worksheet["A1"] = 'Full Module (4up 1pon) with Filter and Door, with 2 AC (one connected and another not connected)'
         if state == 7:
             worksheet = workbook['sheet7']
-            worksheet["A1"] = 'Full Module (4up 8pon) without Filter With Door, with 2 AC (one connected and another not connected)'
+            worksheet["A1"] = 'Full Module (8up 1pon) without Filter With Door, with 2 AC (one connected and another not connected)'
+
         if state == 8:
             worksheet = workbook['sheet8']
-            worksheet["A1"] = 'Full Module (8pon) with Filter and Door, with 2 AC (one connected and another not connected)'
+            worksheet["A1"] = 'Full Module (4pon) with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 9:
             worksheet = workbook['sheet9']
-            worksheet["A1"] = 'Full Module (4up)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+            worksheet["A1"] = 'Full Module (8pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 10:
             worksheet = workbook['sheet10']
-            worksheet["A1"] = 'One AC, full Module with Door without Filter '
+            worksheet["A1"] = 'Full Module (12pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 11:
             worksheet = workbook['sheet11']
+            worksheet["A1"] = 'Full Module (16pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+
+        if state == 12:
+            worksheet = workbook['sheet12']
+            worksheet["A1"] = 'Full Module (8up 16pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+
+
+
+        if state == 13:
+            worksheet = workbook['sheet13']
+            worksheet["A1"] = 'One AC, full Module with Door without Filter '
+        if state == 14:
+            worksheet = workbook['sheet14']
             worksheet["A1"] = 'Two AC, full Module with Door without Filter'
 
         worksheet["A2"] = 'CPU Temperature  C'
