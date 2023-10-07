@@ -134,16 +134,16 @@ if state != 1:
 
         if state == 8:
             worksheet = workbook['sheet8']
-            worksheet["A1"] = 'Full Module (4pon) with Filter and Door, with 2 AC (one connected and another not connected)' 
+            worksheet["A1"] = 'Full Module (1up 4pon) with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 9:
             worksheet = workbook['sheet9']
-            worksheet["A1"] = 'Full Module (8pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+            worksheet["A1"] = 'Full Module (1up 8pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 10:
             worksheet = workbook['sheet10']
-            worksheet["A1"] = 'Full Module (12pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+            worksheet["A1"] = 'Full Module (1up 12pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
         if state == 11:
             worksheet = workbook['sheet11']
-            worksheet["A1"] = 'Full Module (16pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+            worksheet["A1"] = 'Full Module (1up 16pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
 
         if state == 12:
             worksheet = workbook['sheet12']
