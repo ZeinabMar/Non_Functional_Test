@@ -1,4 +1,5 @@
 git+ssh://git@gitlab.sinacomsys.local/quality-assurance/test-infrastructure/snmplib.git@master#egg=snmplib
+git+ssh://git@gitlab.sinacomsys.local:quality-assurance/test-infrastructure/clilib.git
 xlsxwriter==3.1.5 
 aspose-cells==23.9.0
 pyasn1==0.4.8
