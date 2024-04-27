@@ -123,17 +123,17 @@ if state != 1:
 
     if state == 6:
         worksheet = workbook['sheet6']
-        worksheet["A1"] = 'Full Module (4up 1pon) with Filter and Door, with 2 AC (one connected and another not connected)'
+        worksheet["A1"] = 'Temperature Measurement with habitual filter, full module, Two card Power and Without Air guide'
     if state == 7:
         worksheet = workbook['sheet7']
-        worksheet["A1"] = 'Full Module (8up 1pon) without Filter With Door, with 2 AC (one connected and another not connected)'
+        worksheet["A1"] = 'Temperature Measurement with habitual filter, full module, One Card Power and Without Air guide'
 
     if state == 8:
         worksheet = workbook['sheet8']
-        worksheet["A1"] = 'Full Module (1up 4pon) with Filter and Door, with 2 AC (one connected and another not connected)' 
+        worksheet["A1"] = 'Temperature Measurement with habitual filter, full module, Two Cover Power and Without Air guide' 
     if state == 9:
         worksheet = workbook['sheet9']
-        worksheet["A1"] = 'Full Module (1up 8pon)  with Filter and Door, with 2 AC (one connected and another not connected)' 
+        worksheet["A1"] = 'Temperature Measurement with habitual filter, full module and Without Air guide, Two Cower Power' 
         
 
     worksheet["A2"] = 'CPU Temperature  C'
